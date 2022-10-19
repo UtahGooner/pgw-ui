@@ -1,0 +1,27 @@
+@import "variables";
+.user-profile {
+  position: relative;
+  width: 250px;
+  max-width: 50vw;
+  display: flex;
+  justify-content: flex-end;
+  color: $darkDirtColor;
+
+  .profile-picture {
+    height: 35px;
+    width: auto;
+    background-color: rgba(255,255,255,0.75);
+    cursor: pointer;
+  }
+
+  .profile-details {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    width: 100%;
+    .arrow {
+      right: 0;
+    }
+  }
+
+}

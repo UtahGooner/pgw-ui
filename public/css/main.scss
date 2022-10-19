@@ -1,0 +1,125 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "./variables";
+
+body {
+  & {
+    min-height: 100vh;
+    background-color: $bodyBgColor;
+    color: $darkDirtColor;
+    font-family: Roboto, sans-serif;
+  }
+
+  a {
+    color: $darkDirtColor;
+    &:hover {
+      color: lighten($darkDirtColor, 20%);
+    }
+  }
+
+}
+
+
+#app {
+  display: flex;
+  flex-direction: column;
+
+  .navbar-dirt {
+    //@extend .navbar-dark;
+    //margin-bottom: 10px;
+
+    &.bg-dirt {
+      background-color: $menuBarColor !important;
+      .nav-item {
+        a {
+          color: rgba(white, 70%);
+        }
+        &:hover a {
+          color: white;
+        }
+        &.active a {
+          color: white;
+        }
+      }
+    }
+
+    .navbar-brand {
+      img.logo {
+        height: 32px;
+        width: auto;
+        background-color: rgba(white, 0.25%);
+        border-radius: 3px;
+      }
+    }
+
+    .logout {
+      background-position: left;
+      background-size: contain;
+      padding-left: 3rem;
+      background-repeat: no-repeat;
+
+    }
+  }
+
+  .main {
+    //margin-top: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    &.drawer--open {
+      .site-header__container {
+        margin-left: 0;
+      }
+    }
+
+
+    @import "drawer";
+
+    main {
+      flex: 1 1 auto;
+      max-height: calc(100vh - 56px);
+      overflow: auto;
+      padding-bottom: $footerHeight;
+
+      .site {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    }
+  }
+
+  @import "profile";
+  @import "site-images";
+  @import "blog";
+
+  .home-content {
+    background-image: url("/images/LBM-AZ/2000/IMG_6452.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    .jumbotron {
+      background-color: rgba(255,255,255,0.5);
+      color: $darkDirtColor;
+    }
+
+    .current-blog-content {
+      @extend .blog-content;
+    }
+  }
+
+  .pagination {
+    margin-bottom: 0;
+  }
+
+
+  #main-footer {
+    width: 100%;
+    height: $footerHeight;
+    line-height: $footerHeight;
+    text-align: center;
+    background-color: $darkDirtColor;
+    color: $bodyBgColor;
+  }
+}

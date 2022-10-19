@@ -1,0 +1,9 @@
+doctype html
+html(itemscope itemtype="http://schema.org/Article")
+    include head.pug
+    body
+        div#app !{html || ''}
+        script.
+            window.__PRELOADED_STATE__ = !{JSON.stringify(state || {}).replace(/</g, '\\u003c')}
+        script(src=vendors)
+        script(src=bundle)

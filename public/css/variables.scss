@@ -1,0 +1,15 @@
+$darkDirtColor: #8f4400;
+
+$bodyBgColor: lighten($darkDirtColor, 50%);
+
+$menuBarColor: $darkDirtColor;
+$menuTextColor: darken($darkDirtColor, 10%);
+
+$menuHover: darken($darkDirtColor, 10%);
+$menuHoverBG: lighten($darkDirtColor, 40%);
+$menuActive: darken($darkDirtColor, 20%);
+$menuActiveBG: lighten($darkDirtColor, 35%);;
+
+$menuGroupOpenText: lighten($darkDirtColor, 75%);;
+$menuGroupOpenBG: lighten($darkDirtColor, 15%);
+$footerHeight: 30px;
