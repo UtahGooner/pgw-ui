@@ -5,21 +5,19 @@ import store from "./app/configureStore";
 import AppRouter from "./app/AppRouter";
 import React from "react";
 
-const HTML = ({html, helmet, state, manifest, css}: {
-                  html: string;
+const HTML = ({helmet, state, manifest}: {
                   helmet: HelmetData;
                   state: Preload;
                   manifest: ManifestFiles;
-                  css: string;
               }
 ) => {
     return (
         <html lang="en-us" dir="ltr">
         <head>
             <meta charSet="utf-8"/>
+            <title>Petroglyph Watch</title>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <link rel="icon" type="image/png" href="/images/logo.png"/>
-            <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
             <link rel="stylesheet" href="/css/main.css"/>
             {helmet.title.toComponent()}

@@ -23,7 +23,7 @@ const BlogEntry = () => {
         return null;
     }
     return (
-        <div className="container blog-content">
+        <div className="container blog-content mb-5">
             <Helmet>
                 <title>{siteTitle(entry.title)}</title>
             </Helmet>

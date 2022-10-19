@@ -3,6 +3,7 @@ import AppLayout from "./AppLayout";
 import HomeContent from "../components/HomeContent";
 import BlogEntry from "../components/BlogEntry";
 import SiteContainer from "../components/SiteContainer";
+import NoMatch from "../components/NoMatch";
 
 const AppRouter = () => {
 
@@ -16,6 +17,7 @@ const AppRouter = () => {
                     <Route path=":year/:month/:name" element={<BlogEntry/>}/>
                     <Route path=":name" element={<BlogEntry/>}/>
                 </Route>
+                <Route path="*" element={<NoMatch />} />
             </Route>
         </Routes>
     )

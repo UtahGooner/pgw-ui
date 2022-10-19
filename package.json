@@ -62,10 +62,15 @@
     "start": "webpack serve --config webpack.dev.js --progress",
     "build": "webpack --config webpack.prod.js --progress",
     "dev-server": "node dev-server.js",
-    "start-server": "node server.js",
+    "start-server": "npx nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "author": "Steve Montgomery",
-  "license": "ISC"
+  "license": "ISC",
+  "auto-changelog": {
+    "template": "keepachangelog",
+    "unreleased": true,
+    "commitLimit": false
+  }
 }
