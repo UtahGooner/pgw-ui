@@ -2,22 +2,38 @@ import 'dotenv/config';
 import express from 'express';
 import Debug from 'debug';
 import compression from 'compression';
-import helmet from "helmet";
+import {default as helmet, contentSecurityPolicy} from "helmet";
 import {promises as fsPromises} from "node:fs";
+import path from 'node:path';
 import favicon from 'serve-favicon';
 
 const debug = Debug('gutenprog:local-server');
 const app = express();
 app.set('trust proxy', 'loopback');
 app.use(compression());
-app.use(helmet());
-if (process.env.NODE_ENV === 'production') {
-    app.use(favicon('/var/www/petroglyphwatch.com/images/logo.png'));
-}
-// app.use(contentSecurityPolicy({
-//     useDefaults: false,
-//     directives: `default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests`,
-// }))
+app.use(helmet({
+    contentSecurityPolicy: false,
+}));
+const cspDirectives = contentSecurityPolicy.getDefaultDirectives();
+delete cspDirectives['upgrade-insecure-requests'];
+debug(cspDirectives);
+app.use(contentSecurityPolicy({
+    useDefaults: false,
+    directives: {
+        'default-src': [ "'self'" ],
+        'base-uri': [ "'self'" ],
+        'font-src': [ "'self'", 'https:', 'data:' ],
+        'form-action': [ "'self'" ],
+        'frame-ancestors': [ "'self'" ],
+        'img-src': [ "'self'", 'data:' ],
+        'object-src': [ "'none'" ],
+        'script-src': [ "'self'" ],
+        'script-src-attr': [ "'none'" ],
+        'style-src': [ "'self'", 'https:', "'unsafe-inline'" ]
+    }
+}));
+
+app.use(favicon(path.join(process.cwd(), './images/logo.png')));
 app.use('/css', express.static('./public/css'));
 app.use('/js', express.static('./public/js'));
 app.use((req, res, next) => {

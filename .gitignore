@@ -4,5 +4,6 @@
 /.idea
 /public/.sass-cache
 /public/js
+/public/models
 *.map
 *.css
