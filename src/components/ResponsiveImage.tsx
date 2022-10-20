@@ -24,7 +24,7 @@ const ResponsiveImage = ({path, filename, sizes = [125, 400, 800, 2000], imagesP
                         <source key={index} media={media} srcSet={srcSet}/>
                     )
                 })}
-            <img src={pathCompiler({path, size: imgSize, filename})}/>
+            <img src={pathCompiler({path, size: imgSize, filename})} loading="lazy"/>
         </picture>
     )
 }

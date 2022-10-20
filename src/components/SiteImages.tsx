@@ -4,6 +4,11 @@ import SiteImage from "./SiteImage";
 import classNames from 'classnames';
 import ImagePaginator from "./ImagePaginator";
 import {selectCurrentSite, selectImagesPerPage, selectPagedImages} from "../features/sites";
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import ResponsiveImage from "./ResponsiveImage";
 
 const calcPerRow = (imagesPerPage: number) => {
     switch (true) {
@@ -16,26 +21,45 @@ const calcPerRow = (imagesPerPage: number) => {
     }
 }
 
+const LazyImage = ({filename, path}:{
+    filename: string;
+    path: string;
+}) => {
+    const src400 = `/images/${encodeURIComponent(path)}/400/${encodeURIComponent(filename)}`;
+    const src800 = `/images/${encodeURIComponent(path)}/800/${encodeURIComponent(filename)}`;
+    const srcSet = `${src400} 800w, ${src800}`;
+    return (
+        <img loading="lazy"
+             src={src400}
+             srcSet={srcSet}
+             alt={filename} className="img-fluid" />
+    )
+}
+
 const SiteImages = () => {
     const pagesImages = useSelector(selectPagedImages);
     const imagesPerPage = useSelector(selectImagesPerPage);
-    const [imagesPerRow, setImagesPerRow] = useState(calcPerRow(imagesPerPage));
     const currentSite = useSelector(selectCurrentSite);
+    const isSmall = useMediaQuery('(max-width:600px;');
+    const isMedium = useMediaQuery('(max-width: 900px');
+    const cols = isSmall ? 1 : (isMedium ? 2 : (imagesPerPage % 3 === 0 ? 3 : 2));
 
-    useEffect(() => {
-        setImagesPerRow(calcPerRow(imagesPerPage));
-    }, [imagesPerPage])
-
-
+    if (!currentSite) {
+        return null;
+    }
     return (
         <div className="image-list">
             <ImagePaginator/>
-            <div className={classNames("site-images", `site-images--${imagesPerRow}`)}>
-                {pagesImages.map(img => (
-                    <SiteImage key={img.id} path={currentSite!.path} imagesPerRow={imagesPerRow}
-                               image={img}/>
-                ))}
-            </div>
+            <Box sx={{backgroundColor: '#ffc48f', p: 3}}>
+                <ImageList variant="masonry" cols={cols} gap={8}>
+                    {pagesImages.map(img => (
+                        <ImageListItem key={img.filename}>
+                            <LazyImage filename={img.filename} path={currentSite!.path} />
+                        </ImageListItem>
+                    ))}
+
+                </ImageList>
+            </Box>
         </div>
     )
 }
